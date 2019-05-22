@@ -1,0 +1,12 @@
+imports:
+    - { resource: 'vendor/symplify/easy-coding-standard/config/clean-code.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/psr12.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/symfony.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/symfony-risky.yml' }
+services:
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer:
+        space_before: one
+    ObjectCalisthenics\Sniffs\Classes\ForbiddenPublicPropertySniff: ~
+parameters:
+    skip:
+        PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
