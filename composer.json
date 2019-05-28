@@ -30,8 +30,8 @@
     "autoload-dev": {
         "psr-4": {
             "Domain\\" : "tests/Domain/",
-            "Infrastructure\\": "tests/Infrastructure/",
-            "Framework\\" : "tests/Framework/"
+            "Framework\\" : "tests/Framework/",
+            "Infrastructure\\": "tests/Infrastructure/"
         }
     },
     "replace": {
