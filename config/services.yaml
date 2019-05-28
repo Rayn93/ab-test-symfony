@@ -23,6 +23,10 @@ services:
     Framework\Controller\:
         resource: '../src/Framework/Controller'
         tags: ['controller.service_arguments']
+    
+    Infrastructure\:
+        resource: '../src/Infrastructure'
+        exclude: '../src/Infrastructure/Query'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
