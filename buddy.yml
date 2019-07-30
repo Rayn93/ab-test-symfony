@@ -1,42 +1,3 @@
-- pipeline: "CI"
-  trigger_mode: "${TRIGGER_MODE}"
-  ref_name: "${REF_NAME}"
-  ref_type: "${REF_TYPE}"
-  clone_depth: 1
-  trigger_condition: "ALWAYS"
-  actions:
-    - action: "Execute: composer test"
-      type: "BUILD"
-      working_directory: "/app"
-      region: "eu-west-1"
-      docker_image_name: "${PROJECT_NAME}"
-      docker_image_tag: "latest"
-      execute_commands:
-        - "composer install --no-interaction --prefer-dist"
-        - "composer test"
-        - ""
-      services:
-        - type: "MYSQL"
-          version: "5.7"
-          connection:
-            host: "mysql_${PROJECT_NAME}"
-            port: 3306
-            user: "${MYSQL_USER}"
-            password: "${MYSQL_PASSWORD}"
-            db: "${PROJECT_NAME}"
-      mount_filesystem_path: "/app"
-      shell: "SH"
-      trigger_condition: "ALWAYS"
-    - action: "Send notification to ci channel"
-      type: "SLACK"
-      trigger_time: "ON_FAILURE"
-      content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by <$BUDDY_EXECUTION_REVISION_COMMITTER_EMAIL>"
-      channel: "CHCH38Q4T"
-      channel_name: "ci"
-      attachments:
-        - "{\"fallback\":\"$BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID\",\"color\":\"danger\",\"fields\":[{\"title\":\"Failed execution\",\"value\":\"<$BUDDY_EXECUTION_URL|Execution #$BUDDY_EXECUTION_ID $BUDDY_EXECUTION_COMMENT>\",\"short\":true},{\"title\":\"Pipeline\",\"value\":\"<$BUDDY_PIPELINE_URL|$BUDDY_PIPELINE_NAME>\",\"short\":true},{\"title\":\"Branch\",\"value\":\"$BUDDY_EXECUTION_BRANCH\",\"short\":true},{\"title\":\"Project\",\"value\":\"<$BUDDY_PROJECT_URL|$BUDDY_PROJECT_NAME>\",\"short\":true}]}"
-      trigger_condition: "ALWAYS"
-
 - pipeline: "Deploy"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "master"
@@ -119,7 +80,7 @@
     - action: "Send notification to cd channel"
       type: "SLACK"
       trigger_time: "ON_FAILURE"
-      content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by <$BUDDY_EXECUTION_REVISION_COMMITTER_EMAIL>"
+      content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by <$BUDDY_INVOKER_NAME>"
       channel: "CK9LNLJ1W"
       channel_name: "cd"
       attachments:
@@ -157,7 +118,7 @@
     - action: "Send notification to ci channel"
       type: "SLACK"
       trigger_time: "ON_FAILURE"
-      content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by <$BUDDY_EXECUTION_REVISION_COMMITTER_EMAIL>"
+      content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by <$BUDDY_INVOKER_NAME>"
       channel: "CHCH38Q4T"
       channel_name: "ci"
       attachments:
