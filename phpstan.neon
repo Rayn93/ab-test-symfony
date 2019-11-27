@@ -2,4 +2,4 @@ includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
 parameters:
     autoload_files:
-        - vendor/bin/.phpunit/phpunit-7.5/vendor/autoload.php
+        - vendor/bin/.phpunit/phpunit-7.5-0/vendor/autoload.php

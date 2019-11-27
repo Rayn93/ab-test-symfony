@@ -1,6 +1,8 @@
 {
     "type": "project",
     "license": "proprietary",
+    "name": "landingi/symfony-template",
+    "description": "That's a basic symfony template for service",
     "require": {
         "php": "^7.2",
         "ext-ctype": "*",

@@ -84,9 +84,6 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
-    "facebook/webdriver": {
-        "version": "1.6.0"
-    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -295,9 +292,6 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.6"
-    },
-    "symfony/panther": {
-        "version": "v0.3.0"
     },
     "symfony/phpunit-bridge": {
         "version": "4.1",
