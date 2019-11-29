@@ -51,7 +51,13 @@ class Request
      */
     public function getUserAgent() : string
     {
-        return (string) $this->request->headers->get('User-Agent');
+        $userAgent = $this->request->headers->get('User-Agent');
+
+        if (is_string($userAgent)) {
+            return $userAgent;
+        }
+
+        return '';
     }
 
     /**
