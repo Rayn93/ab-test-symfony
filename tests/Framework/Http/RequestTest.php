@@ -26,7 +26,7 @@ class RequestTest extends TestCase
             $files = [],
             $server = [
                 'REMOTE_ADDR' => '127.0.0.1',
-                'HTTP_User_Agent' => 'User-Agent'
+                'HTTP_User_Agent' => 'User-Agent',
             ]
         );
         $request->setSession(new SessionMock('sessionId'));

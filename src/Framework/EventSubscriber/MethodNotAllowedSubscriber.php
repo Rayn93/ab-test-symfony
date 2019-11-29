@@ -14,7 +14,7 @@ final class MethodNotAllowedSubscriber implements EventSubscriberInterface
     /**
      * @return array
      */
-    public static function getSubscribedEvents(): array
+    public static function getSubscribedEvents() : array
     {
         return [
             KernelEvents::EXCEPTION => 'onKernelException',

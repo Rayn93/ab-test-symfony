@@ -11,11 +11,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 class SessionMock extends Session
 {
     /**
-     * @var string
-     */
-    private $id;
-
-    /**
      * @param string $id
      */
     public function __construct(string $id)
