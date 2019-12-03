@@ -1,0 +1,7 @@
+four_labs_gamp:
+    protocol_version: 1
+    tracking_id: UA-153480046-1
+    use_ssl: false
+    anonymize_ip: false
+    async_requests: true
+    sandbox: true
