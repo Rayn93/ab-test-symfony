@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Framework\Controller;
 
-use Doctrine\DBAL\Connection;
+use Application\Command\CreateVisitor;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use FourLabs\GampBundle\Service\AnalyticsFactory;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,53 +17,33 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(Request $request, AnalyticsFactory $gamp, Connection $dbal) : Response
+    public function index(Request $request, AnalyticsFactory $gamp) : Response
     {
-
-//        dump($gamp->createAnalytics()->getClientId());
-
         $response = new Response();
-
-        $this->getVariant($request, $response);
-//        $gamp->createAnalytics()->getClientId();
-
-
-//        $dbal->insert('')
-
-
-
-
-
-
+        $variant = $this->getVariant($request, $response);
 
         return $this->render(
             'base.html.twig',
-            [
-                'googleCookie' => $request->cookies->get('_gid')
-            ],
+            [],
             $response
         );
     }
 
     /**
-     * @Route("/welcome", name="welcome")
+     * @Route("/create-visitor", name="create_visitor")
      */
-    public function welcome(AnalyticsFactory $gamp) : Response
+    public function createVisitor(Request $request) : JsonResponse
     {
+        try {
+            $this->dispatchMessage(new CreateVisitor(
+                $request->cookies->get('_gid'),
+                $request->cookies->get('variantab'),
+                'Germany'
+            ));
+        } catch (UniqueConstraintViolationException $e) {
+        }
 
-
-//        dump($request->cookies->get('_gid'));
-        dump($gamp->createAnalytics()->getClientId());
-
-        return $this->render('base.html.twig');
-
-
-//        return new JsonResponse(['message' => 'ok']);
-    }
-
-    public function generateVariantCookie(Request $request)
-    {
-
+        return new JsonResponse(['message' => 'ok']);
     }
 
     private function getVariant(Request $request, Response $response)

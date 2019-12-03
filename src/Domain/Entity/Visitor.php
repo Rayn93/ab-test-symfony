@@ -1,6 +1,7 @@
 <?php
 namespace Domain\Entity;
 
+use Application\Command\CreateVisitor;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +35,18 @@ class Visitor
      * @ORM\Column(type="string", length=120, nullable=true)
      */
     private $country;
+
+    public static function fromCommand(CreateVisitor $command) : Visitor
+    {
+        return new self($command->getGId(), $command->getVariant(), $command->getCountry());
+    }
+
+    public function __construct(string $gId, string $variant, string $country)
+    {
+        $this->gId = $gId;
+        $this->variant = $variant;
+        $this->country = $country;
+    }
 
     public function getId(): ?int
     {
